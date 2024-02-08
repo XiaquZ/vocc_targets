@@ -21,7 +21,7 @@ tar_option_set(
       per_cpu_mem = "30000mb",
       n_tasks = 1,
       per_task_cpus = 5,
-      walltime = "02:00:00"
+      walltime = "03:00:00"
     ))
   )
 )

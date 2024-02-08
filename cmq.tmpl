@@ -4,8 +4,8 @@
 #SBATCH --array=1-{{ n_jobs }}
 #SBATCH --ntasks={{ n_tasks | 1 }}
 #SBATCH --cpus-per-task={{ per_task_cpus | 36 }}
-#SBATCH --time={{ walltime | 01:00:00 }}
-#SBATCH -M wice
+#SBATCH --time={{ walltime | 03:00:00 }}
+#SBATCH -M genius
 #SBATCH -A lp_climateplants
 
 source $VSC_HOME/.bashrc
