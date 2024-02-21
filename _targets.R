@@ -34,9 +34,9 @@ tar_source()
 
 tar_plan(
   tolerance = 0.25,
-  max_distance = 50000,
-  present_files = list.files("/lustre1/scratch/348/vsc34871/input/VoCC/preIT/", full.names = T),
-  future_files = list.files("/lustre1/scratch/348/vsc34871/input/VoCC/futIT/", full.names = T),
+  #max_distance = 50000,
+  present_files = list.files("/lustre1/scratch/348/vsc34871/input/VoCC/preEastEU/", full.names = T),
+  future_files = list.files("/lustre1/scratch/348/vsc34871/input/VoCC/futEastEU/", full.names = T),
   tar_target(tile_names,
     paste0(paste0(str_split(
       gsub("ForestMAT_", "", tail(str_split(present_files, "/")[[1]], 1)),
@@ -48,7 +48,7 @@ tar_plan(
     calc_forward_vel(
       tile_names,
       tolerance,
-      max_distance,
+      #max_distance,
       present_files,
       future_files
     ),

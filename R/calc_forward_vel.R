@@ -1,6 +1,6 @@
 calc_forward_vel <- function(tile_name,
                              tolerance,
-                             max_distance,
+                             #max_distance,
                              present_files, # must contain
                              future_files) {
   print(paste("Now calculating:", tile_name))
@@ -43,7 +43,7 @@ calc_forward_vel <- function(tile_name,
   distance <- app(ds, fun = sum, na.rm = T) # Sum all layers of ds rast to make complete map
   names(distance) <- "distance"
 
-  forward_vel_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/IT/fvocc_", tile_name, ".tif")
+  forward_vel_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/EastEU/fvocc_", tile_name, ".tif")
   #forward_vel <- mask(distance, distance <= max_distance, maskvalues = F) / 75 # Calculate velocity # nolint
   forward_vel <- distance / 75 # Calculate velocity without set the max_distance.
   writeRaster(forward_vel, forward_vel_file, overwrite = T) # write
