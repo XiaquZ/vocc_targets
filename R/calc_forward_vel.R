@@ -49,4 +49,5 @@ calc_forward_vel <- function(tile_name,
   writeRaster(forward_vel, forward_vel_file, overwrite = T) # write
 
   return(forward_vel_file) # Return filename
+  gc()
 }

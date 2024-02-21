@@ -24,8 +24,7 @@ tar_option_set(
       walltime = "24:00:00"
     ))
   ),
-  memory = "transient",
-  garbage_collection = TURE
+  memory = "transient"
 )
 
 # Loads all R scripts in ./R/ directory.
