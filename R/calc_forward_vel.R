@@ -44,7 +44,8 @@ calc_forward_vel <- function(tile_name,
   names(distance) <- "distance"
 
   forward_vel_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/IT/fvocc_", tile_name, ".tif")
-  forward_vel <- mask(distance, distance <= max_distance, maskvalues = F) / 75 # Calculate velocity
+  #forward_vel <- mask(distance, distance <= max_distance, maskvalues = F) / 75 # Calculate velocity # nolint
+  forward_vel <- distance / 75 # Calculate velocity without set the max_distance.
   writeRaster(forward_vel, forward_vel_file, overwrite = T) # write
 
   return(forward_vel_file) # Return filename
