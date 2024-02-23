@@ -1,6 +1,6 @@
 calc_forward_vel <- function(tile_name,
                              tolerance,
-                             #max_distance,
+                             max_distance,
                              present_files, # must contain
                              future_files) {
   print(paste("Now calculating:", tile_name))
@@ -33,21 +33,29 @@ calc_forward_vel <- function(tile_name,
     )
     # Calculate distance to closest analogue
     fut_distance <- distance(fut_filt)
+    # Calculate the aspects to the closest analogue
+    fut_aspect <- terrain(fut_distance, v="aspect", neighbors = 8, unit = "degrees")
     ## Crop to tile to exclude buffer around tile
     analogue_distance <- mask(crop(fut_distance, pre_filt), pre_filt)
-
+    analogue_aspect <- terra::crop(fut_aspect, pre_filt, mask = TRUE)
     ## all_analogue_distance <- sum(all_analogue_distance, analogue_distance, na.rm = T)
   })
 
   ds <- rast(analogue_distances) # List of all analogue rasts to one rast
+  asp <- rast(analogue_aspect) #List of the aspect of all analogue cells
   distance <- app(ds, fun = sum, na.rm = T) # Sum all layers of ds rast to make complete map
+  aspectTotal <- app(asp, fun = sum, na.rm = T) # Sum all layers of aspect rast.
   names(distance) <- "distance"
+  names(aspectTotal) <- "aspect"
 
-  forward_vel_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/EastEU/fvocc_", tile_name, ".tif")
-  #forward_vel <- mask(distance, distance <= max_distance, maskvalues = F) / 75 # Calculate velocity # nolint
-  forward_vel <- distance / 75 # Calculate velocity without set the max_distance.
+  forward_vel_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/Fr/fvocc_", tile_name, ".tif")
+  forward_vel <- mask(distance, distance <= max_distance, maskvalues = F) / 75 # Calculate velocity 
   writeRaster(forward_vel, forward_vel_file, overwrite = T) # write
 
+  asp_fvocc_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/Fr/aspect/fvocc_asp", tile_name, ".tif")
+  writeRaster(aspectTotal, asp_fvocc_file, overwrite = TRUE)
+
   return(forward_vel_file) # Return filename
+  return(asp_fvocc_file)
   gc()
 }
