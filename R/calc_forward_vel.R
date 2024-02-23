@@ -37,7 +37,7 @@ calc_forward_vel <- function(tile_name,
     fut_aspect <- terrain(fut_distance, v="aspect", neighbors = 8, unit = "degrees")
     ## Crop to tile to exclude buffer around tile
     analogue_distance <- mask(crop(fut_distance, pre_filt), pre_filt)
-    analogue_aspect <- terra::crop(fut_aspect, pre_filt, mask = TRUE)
+    analogue_aspect <- mask(crop(fut_aspect, pre_filt), pre_filt)
     ## all_analogue_distance <- sum(all_analogue_distance, analogue_distance, na.rm = T)
   })
 
