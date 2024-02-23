@@ -19,7 +19,7 @@ calc_forward_vel <- function(tile_name,
   ## Set tolerace for matching analogues
 
   ## apply over all of the pre_values in lis
-  analogue_distances <- lapply(pre_values, function(pre_value) {
+  analogue_results <- lapply(pre_values, function(pre_value) {
     ## Filter only values in pre_round that are equal to pre_value
     pre_filt <- mask(pre_round,
       pre_round == pre_value,
@@ -36,15 +36,16 @@ calc_forward_vel <- function(tile_name,
     # Calculate the aspects to the closest analogue
     fut_aspect <- terrain(fut_distance, v="aspect", neighbors = 8, unit = "degrees")
     ## Crop to tile to exclude buffer around tile
-    analogue_distance <- mask(crop(fut_distance, pre_filt), pre_filt)
-    analogue_aspect <- mask(crop(fut_aspect, pre_filt), pre_filt)
+    analogue_result <- mask(crop(c(fut_distance, fut_aspect), pre_filt), pre_filt)
     ## all_analogue_distance <- sum(all_analogue_distance, analogue_distance, na.rm = T)
   })
 
-  ds <- rast(analogue_distances) # List of all analogue rasts to one rast
-  asp <- rast(analogue_aspect) #List of the aspect of all analogue cells
-  distance <- app(ds, fun = sum, na.rm = T) # Sum all layers of ds rast to make complete map
-  aspectTotal <- app(asp, fun = sum, na.rm = T) # Sum all layers of aspect rast.
+  
+  ds <- rast(analogue_results[[1]]) # Sum all layers of ds rast to make complete map
+  asp <- rast(analogue_results[[2]])
+
+  distance <- app(ds, fun = sum, na.rm = T)
+  aspectTotal <- app(asp, fun = sum, na.rm = T)
   names(distance) <- "distance"
   names(aspectTotal) <- "aspect"
 
