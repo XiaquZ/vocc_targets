@@ -41,19 +41,19 @@ calc_forward_vel <- function(tile_name,
   })
 
   
-  ds <- rast(analogue_results[[1]]) # Sum all layers of ds rast to make complete map
-  asp <- rast(analogue_results[[2]])
+  ds <- analogue_results[[1]] # Sum all layers of ds rast to make complete map
+  asp <- analogue_results[[2]]
 
   distance <- app(ds, fun = sum, na.rm = T)
   aspectTotal <- app(asp, fun = sum, na.rm = T)
   names(distance) <- "distance"
   names(aspectTotal) <- "aspect"
 
-  forward_vel_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/Fr/fvocc_", tile_name, ".tif")
+  forward_vel_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/CentralEU/fvocc_", tile_name, ".tif")
   forward_vel <- mask(distance, distance <= max_distance, maskvalues = F) / 75 # Calculate velocity 
   writeRaster(forward_vel, forward_vel_file, overwrite = T) # write
 
-  asp_fvocc_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/Fr/aspect/fvocc_asp", tile_name, ".tif")
+  asp_fvocc_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/CentralEU/aspect/fvocc_asp", tile_name, ".tif")
   writeRaster(aspectTotal, asp_fvocc_file, overwrite = TRUE)
 
   return(forward_vel_file) # Return filename
