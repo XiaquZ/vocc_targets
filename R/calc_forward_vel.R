@@ -33,22 +33,42 @@ calc_forward_vel <- function(tile_name,
     )
     # Calculate distance to closest analogue
     fut_distance <- distance(fut_filt)
+    names(fut_distance) <- "distance"
     # Calculate the aspects to the closest analogue
     fut_aspect <- terrain(fut_distance, v="aspect", neighbors = 8, unit = "degrees")
+    names(fut_aspect) <- "aspect"
     ## Crop to tile to exclude buffer around tile
     analogue_result <- mask(crop(c(fut_distance, fut_aspect), pre_filt), pre_filt)
-    ## all_analogue_distance <- sum(all_analogue_distance, analogue_distance, na.rm = T)
+    analogue_ds <- analogue_result[[1]] #Extract the distance layer
+    analogue_asp <- analogue_result[[2]] #Extract the aspect layer
+
+    return(list(analogue_ds, analogue_asp)) #return raster as list.
+
   })
 
   
-  ds <- analogue_results[[1]] # Sum all layers of ds rast to make complete map
-  asp <- analogue_results[[2]]
-
-  distance <- app(ds, fun = sum, na.rm = T)
-  aspectTotal <- app(asp, fun = sum, na.rm = T)
+# Create empty list to store distance layers
+  ds_ls <- list()
+  asp_ls <- list()
+  
+  # Iterate through each output list in analogue_results
+  for (i in 1:length(analogue_results)) {
+    # Extract distance layer from the output list
+    ds <- analogue_results[[i]][[1]]
+    asp <- analogue_results[[i]][[2]]
+    # Append distance and aspect layers to the respective lists
+    ds_ls[[i]] <- ds
+    asp_ls[[i]] <- asp
+  }
+  
+  # Merge distance and aspect layers into a single raster stack
+  distance <- do.call(merge, ds_ls)
   names(distance) <- "distance"
+  
+  aspectTotal <- do.call(merge, asp_ls)
   names(aspectTotal) <- "aspect"
 
+  # Save results as rasters.
   forward_vel_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/CentralEU/fvocc_", tile_name, ".tif")
   forward_vel <- mask(distance, distance <= max_distance, maskvalues = F) / 75 # Calculate velocity 
   writeRaster(forward_vel, forward_vel_file, overwrite = T) # write
