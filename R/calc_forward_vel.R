@@ -21,13 +21,13 @@ calc_forward_vel <- function(tile_name,
   ## apply over all of the pre_values in lis
   analogue_results <- lapply(pre_values, function(pre_value) {
     ## Filter only values in pre_round that are equal to pre_value
-    pre_filt <- mask(pre_round,
+    pre_filt <- terra::mask(pre_round,
       pre_round == pre_value,
       maskvalues = F
     )
 
     ## Filter future analogues which are within tolerance of pre_value
-    fut_filt <- mask(fut_round,
+    fut_filt <- terra::mask(fut_round,
       fut_round >= pre_value - tolerance & fut_round <= pre_value + tolerance,
       maskvalues = F
     )
@@ -37,6 +37,9 @@ calc_forward_vel <- function(tile_name,
     # Calculate the aspects to the closest analogue
     fut_aspect <- terrain(fut_distance, v="aspect", neighbors = 8, unit = "degrees")
     names(fut_aspect) <- "aspect"
+    # Crop to match the extents.
+    fut_aspect <- terra::crop(fut_aspect, fut_distance)
+    fut_distance <- terra::crop(fut_distance, fut_aspect)
     ## Crop to tile to exclude buffer around tile
     analogue_result <- mask(crop(c(fut_distance, fut_aspect), pre_filt), pre_filt)
     analogue_ds <- analogue_result[[1]] #Extract the distance layer
