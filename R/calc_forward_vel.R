@@ -65,15 +65,21 @@ calc_forward_vel <- function(tile_name,
   }
   
   # Merge distance and aspect layers into a single raster stack
-  distance <- do.call(merge, ds_ls)
-  names(distance) <- "distance"
+  distance_sprc <- terra::sprc(ds_ls)
+  dis <- terra::merge(distance_sprc)
+  names(dis) <- "distance"
+  print(dis)
   
-  aspectTotal <- do.call(merge, asp_ls)
+  asp_sprc <- terra::sprc(asp_ls)
+  aspectTotal <- terra::merge(asp_sprc)
   names(aspectTotal) <- "aspect"
+  print(aspectTotal)
 
   # Save results as rasters.
   forward_vel_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/CentralEU/fvocc_", tile_name, ".tif")
-  forward_vel <- mask(distance, distance <= max_distance, maskvalues = F) / 75 # Calculate velocity 
+  forward_vel <- mask(dis, dis <= max_distance, maskvalues = F) / 75 # Calculate velocity 
+  forward_vel <- round(forward_vel,1)
+  print(forward_vel)
   writeRaster(forward_vel, forward_vel_file, overwrite = T) # write
 
   asp_fvocc_file <- paste0("/lustre1/scratch/348/vsc34871/output/VoCC/CentralEU/aspect/fvocc_asp", tile_name, ".tif")
