@@ -23,8 +23,7 @@ tar_option_set(
       per_task_cpus = 36,
       walltime = "48:00:00"
     ))
-  ),
-  memory = "transient"
+  )
 )
 
 # Loads all R scripts in ./R/ directory.

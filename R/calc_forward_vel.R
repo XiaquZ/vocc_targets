@@ -50,5 +50,4 @@ calc_forward_vel <- function(tile_name,
 
     return(forward_vel_file) # Return filename
 
-  gc()
 }
