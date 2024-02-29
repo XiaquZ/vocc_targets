@@ -1,7 +1,7 @@
 #! /bin/bash
-#SBATCH --job-name=cmq-climate-velocity
+#SBATCH --job-name=cmq-wice-velocity
 #SBATCH --ntasks=1 --cpus-per-task=10 --mem-per-cpu=7000mb
-#SBATCH --time=26:35:00
+#SBATCH --time=49:35:00
 
 source $VSC_HOME/.bashrc
 
