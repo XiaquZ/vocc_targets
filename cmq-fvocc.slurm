@@ -8,5 +8,6 @@ source $VSC_HOME/.bashrc
 conda activate VoCC_R_new
 
 cd $VSC_DATA/vocc_targets/
+export OMP_NUM_THREADS=1
 
 Rscript targets_run_cmq.R
