@@ -23,7 +23,7 @@ tar_option_set(
       job_name = "auto-velocity",
       per_cpu_mem = "4000mb",
       n_tasks = 1,
-      per_task_cpus = 72,
+      per_task_cpus = 36,
       walltime = "15:00:00"
     ))
   )
