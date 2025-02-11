@@ -14,7 +14,7 @@ options(
 )
 
 ## Running locally on Windows
-options(clustermq.scheduler = "multiprocess")
+#options(clustermq.scheduler = "multiprocess")
 
 ## Settings for clustermq template when running clustermq on HPC
 tar_option_set(
