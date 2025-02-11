@@ -1,6 +1,6 @@
 #! /bin/bash
 #SBATCH --job-name=cmq-velocity
-#SBATCH --ntasks=1 --cpus-per-task=10 --mem-per-cpu=7000mb
+#SBATCH --ntasks=1 --cpus-per-task=10 --mem-per-cpu=5000mb
 #SBATCH --time=16:35:00
 
 source $VSC_HOME/.bashrc
