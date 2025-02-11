@@ -4,7 +4,7 @@
 #SBATCH --array=1-{{ n_jobs }}
 #SBATCH --ntasks={{ n_tasks | 1 }}
 #SBATCH --cpus-per-task={{ per_task_cpus | 36 }}
-##SBATCH --partition=bigmem
+#SBATCH --partition=bigmem
 #SBATCH --time={{ walltime | 20:00:00 }}
 #SBATCH -M genius
 #SBATCH -A lp_climateplants
