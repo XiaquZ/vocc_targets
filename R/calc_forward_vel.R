@@ -4,7 +4,6 @@ calc_forward_vel <- function(tile_names,
                              present_files, # must contain
                              future_files) {
   print(paste("Now calculating:", tile_names))
-
   ## Load data
   pre <- rast(grep(tile_names, present_files, value = T))
   ## names(pre) <- "pre"

@@ -6,15 +6,15 @@ library(clustermq)
 ## # Sets up how multiple targets are run parallel using the clustermq package
 ## options(clustermq.scheduler = "multiprocess")
 
-### Running on HPC
-## Settings for clustermq
+## Running on HPC
+# Settings for clustermq
 options(
   clustermq.scheduler = "slurm",
   clustermq.template = "./cmq.tmpl" # if using your own template
 )
 
-## Running locally on Windows
-#options(clustermq.scheduler = "multiprocess")
+# # Running locally on Windows
+# options(clustermq.scheduler = "multiprocess")
 
 ## Settings for clustermq template when running clustermq on HPC
 tar_option_set(
