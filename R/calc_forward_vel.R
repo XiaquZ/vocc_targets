@@ -1,13 +1,13 @@
-calc_forward_vel <- function(tile_names,
+calc_forward_vel <- function(tile_name,
                              tolerance,
                              max_distance,
                              present_files, # must contain
                              future_files) {
-  print(paste("Now calculating:", tile_names))
+  print(paste("Now calculating:", tile_name))
   ## Load data
-  pre <- rast(grep(tile_names, present_files, value = T))
+  pre <- rast(grep(tile_name, present_files, value = T))
   ## names(pre) <- "pre"
-  fut <- rast(grep(tile_names, future_files, value = T))
+  fut <- rast(grep(tile_name, future_files, value = T))
   ## names(fut) <- "fut"
 
   ## Round pre and fut to one decimal
@@ -42,7 +42,7 @@ calc_forward_vel <- function(tile_names,
     names(distance) <- "distance"
   # Save results as rasters.
     forward_vel_file <- paste0(
-      "/lustre1/scratch/348/vsc34871/output/VoCC/NorthEU/fvocc_100km_BufferRing_", tile_names, ".tif"
+      "/lustre1/scratch/348/vsc34871/output/VoCC/NorthEU/fvocc_100km_BufferRing_", tile_name, ".tif"
       )
     forward_vel <- mask(distance, distance <= max_distance, maskvalues = F) / 75 # Calculate velocity 
     forward_vel <- round(forward_vel,1)
