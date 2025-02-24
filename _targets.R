@@ -17,7 +17,7 @@ tar_option_set(
   resources = tar_resources(
     clustermq = tar_resources_clustermq(template = list(
       job_name = "auto-velocity",
-      per_cpu_mem = "5000mb",
+      per_cpu_mem = "20000mb",
       n_tasks = 1,
       per_task_cpus = 36,
       walltime = "20:00:00"
@@ -33,9 +33,9 @@ tar_source()
 tar_plan(
   tolerance = 0.25,
   max_distance = 100000,
-  present_files = list.files("/lustre1/scratch/348/vsc34871/input/VoCC/preNorth/",
+  present_files = list.files("/lustre1/scratch/348/vsc34871/input/VoCC/prePTES/",
    full.names = T),
-  future_files = list.files("/lustre1/scratch/348/vsc34871/input/VoCC/futNorth/",
+  future_files = list.files("/lustre1/scratch/348/vsc34871/input/VoCC/futPTES/",
    full.names = T),
   tar_target(tile_names,
     paste0(paste0(str_split(
