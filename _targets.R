@@ -9,18 +9,18 @@ options(
   clustermq.template = "./cmq.tmpl" # if using your own template
 )
 
-# # Running locally on Windows
-# options(clustermq.scheduler = "multiprocess")
+# Running locally on Windows
+options(clustermq.scheduler = "multiprocess")
 
 ## Settings for clustermq template when running clustermq on HPC
 tar_option_set(
   resources = tar_resources(
     clustermq = tar_resources_clustermq(template = list(
       job_name = "auto-velocity",
-      per_cpu_mem = "20000mb",
+      per_cpu_mem = "5000mb",
       n_tasks = 1,
       per_task_cpus = 36,
-      walltime = "20:00:00"
+      walltime = "15:00:00"
     ))
   )
 )
@@ -32,14 +32,18 @@ tar_source()
 
 tar_plan(
   tolerance = 0.25,
-  max_distance = 100000,
-  present_files = list.files("/lustre1/scratch/348/vsc34871/input/VoCC/preEastEU/",
-   full.names = T),
-  future_files = list.files("/lustre1/scratch/348/vsc34871/input/VoCC/futEastEU/",
-   full.names = T),
+  max_distance = 75000,
+  present_files = list.files(
+    "/lustre1/scratch/348/vsc34871/input/FVoMC/prefrance/",
+    full.names = T
+  ),
+  future_files = list.files(
+    "/lustre1/scratch/348/vsc34871/input/FVoMC/futfrance/",
+    full.names = T
+  ),
   tar_target(tile_names,
     paste0(paste0(str_split(
-      gsub("bio1_pre_SA_", "", tail(str_split(present_files, "/")[[1]], 1)),
+      gsub("ForestMAT_", "", tail(str_split(present_files, "/")[[1]], 1)),
       "_"
     )[[1]][1:2], collapse = "_"), "_"),
     pattern = map(present_files),
