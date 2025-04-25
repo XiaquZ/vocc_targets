@@ -9,8 +9,8 @@ options(
   clustermq.template = "./cmq.tmpl" # if using your own template
 )
 
-# Running locally on Windows
-options(clustermq.scheduler = "multiprocess")
+# # Running locally on Windows
+# options(clustermq.scheduler = "multiprocess")
 
 ## Settings for clustermq template when running clustermq on HPC
 tar_option_set(
