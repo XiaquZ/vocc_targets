@@ -20,7 +20,7 @@ tar_option_set(
       per_cpu_mem = "20000mb",
       n_tasks = 1,
       per_task_cpus = 36,
-      walltime = "15:00:00"
+      walltime = "20:00:00"
     ))
   )
 )
@@ -34,11 +34,11 @@ tar_plan(
   tolerance = 0.25,
   max_distance = 75000,
   present_files = list.files(
-    "/lustre1/scratch/348/vsc34871/input/FVoMC/prefrance/",
+    "/lustre1/scratch/348/vsc34871/input/FVoMC/preEastEU/",
     full.names = T
   ),
   future_files = list.files(
-    "/lustre1/scratch/348/vsc34871/input/FVoMC/futfrance/",
+    "/lustre1/scratch/348/vsc34871/input/FVoMC/futEastEU/",
     full.names = T
   ),
   tar_target(tile_names,
