@@ -32,13 +32,13 @@ tar_source()
 
 tar_plan(
   tolerance = 0.25,
-  max_distance = 75000,
+  max_distance = 100000,
   present_files = list.files(
-    "/lustre1/scratch/348/vsc34871/input/FVoMC/preNortheast/",
+    "/lustre1/scratch/348/vsc34871/input/FVoMC/pre_fr/",
     full.names = T
   ),
   future_files = list.files(
-    "/lustre1/scratch/348/vsc34871/input/FVoMC/futNortheast/",
+    "/lustre1/scratch/348/vsc34871/input/FVoMC/fut_fr/",
     full.names = T
   ),
   tar_target(tile_names,
