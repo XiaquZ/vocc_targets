@@ -43,7 +43,7 @@ tar_plan(
   ),
   tar_target(tile_names,
     paste0(paste0(str_split(
-      gsub("ForestMAT_", "", tail(str_split(present_files, "/")[[1]], 1)),
+      gsub("bio1_pre_SA_", "", tail(str_split(present_files, "/")[[1]], 1)),
       "_"
     )[[1]][1:2], collapse = "_"), "_"),
     pattern = map(present_files),
